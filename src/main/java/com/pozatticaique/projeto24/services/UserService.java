@@ -20,5 +20,12 @@ public class UserService {
 		List<User> result = userRepository.findAll();
 		return result;
 	}
+	
+	@Transactional (readOnly = true) //Import spring, não jakart
+	public User findById(String id){
+		User result = userRepository.findById(id).get();
+		return result;
+	}
+	
 
 }

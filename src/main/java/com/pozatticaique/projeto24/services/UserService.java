@@ -39,8 +39,14 @@ public class UserService {
 		return userRepository.insert(obj);
 	}
 	
+	@Transactional
+	public void delete(String id) {
+		findById(id);
+		userRepository.deleteById(id);
+	}
+	
+	@Transactional
 	public User fromDTO(UserDTO obj) {
 		return new User(obj.getId(), obj.getName(), obj.getEmail());
 	}
-
 }

@@ -45,6 +45,18 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	
+	public User update(User obj) {
+		User newUser = userRepository.findById(obj.getId()).get();
+		UpadateData(newUser, obj);
+		return userRepository.save(newUser);		
+	}
+	
+
+	private void UpadateData(User newUser, User obj) {
+		newUser.setName(obj.getName());
+		newUser.setEmail(obj.getEmail());
+	}
+
 	@Transactional
 	public User fromDTO(UserDTO obj) {
 		return new User(obj.getId(), obj.getName(), obj.getEmail());

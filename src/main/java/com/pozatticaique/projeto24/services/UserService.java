@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pozatticaique.projeto24.DTOs.UserDTO;
 import com.pozatticaique.projeto24.entities.User;
 import com.pozatticaique.projeto24.repositories.UserRepository;
 import com.pozatticaique.projeto24.services.exceptions.ResourceNotFound;
@@ -33,5 +34,13 @@ public class UserService {
 		}
 	}	
 	
+	@Transactional
+	public User insert(User obj) {
+		return userRepository.insert(obj);
+	}
+	
+	public User fromDTO(UserDTO obj) {
+		return new User(obj.getId(), obj.getName(), obj.getEmail());
+	}
 
 }

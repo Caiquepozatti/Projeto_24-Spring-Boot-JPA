@@ -2,6 +2,7 @@ package com.pozatticaique.projeto24.config;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.pozatticaique.projeto24.DTOs.AuthorDTO;
+import com.pozatticaique.projeto24.DTOs.CommentDTO;
 import com.pozatticaique.projeto24.entities.Post;
 import com.pozatticaique.projeto24.entities.User;
 import com.pozatticaique.projeto24.repositories.PostRepository;
@@ -39,7 +41,7 @@ public class TestConfig implements CommandLineRunner {
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
 		User bob = new User(null, "Bob Grey", "bob@gmail.com");
 		
-		userRepository.saveAll(Arrays.asList(maria,alex,bob));	
+		userRepository.saveAll(Arrays.asList(maria,alex,bob));
 		
 		Post post1 = new Post(null,sdf.parse("20/07/2023"),"Partiu viagem","Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
 		Post post2 = new Post(null,sdf.parse("18/07/2023"),"Bom dia","Acordei!", new AuthorDTO(maria));
@@ -48,5 +50,14 @@ public class TestConfig implements CommandLineRunner {
 		
 		maria.getPosts().addAll(Arrays.asList(post1,post2));
 		userRepository.save(maria);
-	}
+		
+		CommentDTO c1 = new CommentDTO("Boa viagem man", sdf.parse("20/07/2023"), new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Aproveite", sdf.parse("21/07/2023"), new AuthorDTO(bob));
+		CommentDTO c3 = new CommentDTO("Tenha um ótimo dia", sdf.parse("21/07/2023"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(c1,c2));
+		post2.getComments().addAll(Arrays.asList(c3));
+		postRepository.saveAll(Arrays.asList(post1,post2));
+		postRepository.saveAll(Arrays.asList(post1,post2));
+	}	
 }

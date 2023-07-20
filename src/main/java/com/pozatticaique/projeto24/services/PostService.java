@@ -1,5 +1,6 @@
 package com.pozatticaique.projeto24.services;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pozatticaique.projeto24.entities.Post;
 import com.pozatticaique.projeto24.repositories.PostRepository;
-import com.pozatticaique.projeto24.services.exceptions.ResourceNotFound;
+import com.pozatticaique.projeto24.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class PostService {
@@ -22,7 +23,11 @@ public class PostService {
 			Post result = postRepository.findById(id).get();
 			return result;	
 		}catch(NoSuchElementException e) {
-			throw new ResourceNotFound(id);
+			throw new ObjectNotFoundException(id);
 		}
+	}	
+	
+	public List<Post> findByTitle(String text){
+		return postRepository.findByTitleContainingIgnoreCase(text);
 	}	
 }

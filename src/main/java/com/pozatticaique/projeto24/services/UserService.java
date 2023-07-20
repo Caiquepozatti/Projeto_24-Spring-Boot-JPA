@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pozatticaique.projeto24.DTOs.UserDTO;
 import com.pozatticaique.projeto24.entities.User;
 import com.pozatticaique.projeto24.repositories.UserRepository;
-import com.pozatticaique.projeto24.services.exceptions.ResourceNotFound;
+import com.pozatticaique.projeto24.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserService {
@@ -30,7 +30,7 @@ public class UserService {
 			User result = userRepository.findById(id).get();
 			return result;	
 		}catch(NoSuchElementException e) {
-			throw new ResourceNotFound(id);
+			throw new ObjectNotFoundException(id);
 		}
 	}	
 	

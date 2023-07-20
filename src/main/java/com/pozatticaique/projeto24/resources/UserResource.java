@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pozatticaique.projeto24.DTOs.UserDTO;
+import com.pozatticaique.projeto24.entities.Post;
 import com.pozatticaique.projeto24.entities.User;
 import com.pozatticaique.projeto24.services.UserService;
 
@@ -65,5 +66,9 @@ public class UserResource {
 		return ResponseEntity.ok().build();
 	}
 	
-	
+	@GetMapping(value = "/{id}/posts")
+	public ResponseEntity <List<Post>> findPosts(@PathVariable String id){		
+		User result = userService.findById(id);
+		return ResponseEntity.ok().body(result.getPosts());		
+	}
 }

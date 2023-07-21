@@ -1,5 +1,6 @@
 package com.pozatticaique.projeto24.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -30,4 +31,8 @@ public class PostService {
 	public List<Post> findByTitle(String text){
 		return postRepository.searchTitle(text);
 	}	
+	
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate){
+		return  postRepository.fullSearch(text, minDate, maxDate);
+	}
 }

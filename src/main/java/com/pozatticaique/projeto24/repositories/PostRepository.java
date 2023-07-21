@@ -1,5 +1,6 @@
 package com.pozatticaique.projeto24.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -20,4 +21,8 @@ public interface PostRepository extends MongoRepository<Post, String>{
 	//https://docs.mongodb.com/manual/reference/operator/query/regex/
 	@Query("{'title': { $regex: ?0, $options: 'i'} }")//Pegar como parametro a String text (?0), (Options = i) == IgonreCase
 	List<Post> searchTitle(String text);
+	
+	@Query("{ $and: [ { date: {$gte: ?1} }, { date: { $lte: ?2} } , { $or: [ { 'title': { $regex: ?0, $options: 'i' } }, { 'body': { $regex: ?0, $options: 'i' } }, { 'comments.text': { $regex: ?0, $options: 'i' } } ] } ] }")
+	List<Post> fullSearch(String text, Date minDate, Date maxDate);
+	
 }
